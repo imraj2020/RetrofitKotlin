@@ -1,5 +1,6 @@
 package com.cse.retrofitkotlin.network
 
+import com.cse.nativelib2.NativeLib
 import com.cse.retrofitkotlin.data.LocalSource
 import com.cse.retrofitkotlin.data.RemoteSource
 import com.cse.retrofitkotlin.repos.UserRepos
@@ -18,6 +19,12 @@ import javax.inject.Singleton
 class ObjModule {
 
 
+
+    @Provides
+    @Singleton
+    fun urlProvides(): String {
+        return NativeLib().stringFromJNI()
+    }
 
     @Provides
     @Singleton

@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Retrofit Kotlin"
 include(":app")
+include(":nativelib")
+include(":nativelib2")
