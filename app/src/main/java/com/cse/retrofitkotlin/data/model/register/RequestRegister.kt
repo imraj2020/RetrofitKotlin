@@ -1,4 +1,4 @@
-package com.mehedi.manualdiu.data.models.register
+package com.cse.retrofitkotlin.data.model.register
 
 
 import com.google.gson.annotations.SerializedName

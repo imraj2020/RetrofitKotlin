@@ -1,8 +1,8 @@
 package com.cse.retrofitkotlin.data
 
 import com.cse.retrofitkotlin.data.model.RequestLogin
+import com.cse.retrofitkotlin.data.model.register.RequestRegister
 import com.cse.retrofitkotlin.network.LoginService
-import com.mehedi.manualdiu.data.models.register.RequestRegister
 import javax.inject.Inject
 
 class RemoteSource @Inject constructor(private val service:LoginService) {

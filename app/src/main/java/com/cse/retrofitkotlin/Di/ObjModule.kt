@@ -1,8 +1,9 @@
-package com.cse.retrofitkotlin.network
+package com.cse.retrofitkotlin.Di
 
 import com.cse.nativelib2.NativeLib
 import com.cse.retrofitkotlin.data.LocalSource
 import com.cse.retrofitkotlin.data.RemoteSource
+import com.cse.retrofitkotlin.network.LoginService
 import com.cse.retrofitkotlin.repos.UserRepos
 import dagger.Module
 import dagger.Provides
@@ -10,7 +11,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 
@@ -28,7 +28,7 @@ class ObjModule {
 
     @Provides
     @Singleton
-    fun Retrofit(baseUrl : String):LoginService = Retrofit.Builder()
+    fun Retrofit(baseUrl : String): LoginService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -42,7 +42,7 @@ class ObjModule {
 
     @Provides
     @Singleton
-    fun remotesource(retrofit:LoginService) = RemoteSource(retrofit)
+    fun remotesource(retrofit: LoginService) = RemoteSource(retrofit)
 
 
     @Provides

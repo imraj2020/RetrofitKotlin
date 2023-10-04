@@ -2,10 +2,10 @@ package com.cse.retrofitkotlin.network
 
 import com.cse.retrofitkotlin.data.model.RequestLogin
 import com.cse.retrofitkotlin.data.model.ResponseLogin
+import com.cse.retrofitkotlin.data.model.register.RequestRegister
+import com.cse.retrofitkotlin.data.model.register.ResponseRegister
 import com.cse.retrofitkotlin.utils.LOGIN_ENDPOINT
 import com.cse.retrofitkotlin.utils.REGISTER_ENDPOINT
-import com.mehedi.manualdiu.data.models.register.RequestRegister
-import com.mehedi.manualdiu.data.models.register.ResponseRegister
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

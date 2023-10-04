@@ -27,7 +27,7 @@ class LoginViewModel @Inject constructor(private val repos: UserRepos) : ViewMod
             if (response.isSuccessful) {
                 _loginresponse.postValue(NetworkState.Success(response.body()!!))
             } else {
-                _loginresponse.postValue(NetworkState.error("Something Went Wrong"))
+                _loginresponse.postValue(NetworkState.Error("Something Went Wrong"))
             }
             Log.d("TAG", "loginUser: $response ")
 

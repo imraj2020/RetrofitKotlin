@@ -8,58 +8,88 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.cse.retrofitkotlin.R
 import com.cse.retrofitkotlin.base.BaseFragment
 import com.cse.retrofitkotlin.core.NetworkState
 import com.cse.retrofitkotlin.data.model.RequestLogin
 import com.cse.retrofitkotlin.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginFragment() : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+
+class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+
+
+
+
+
 
     private val viewModel: LoginViewModel by viewModels()
     override fun responseObserver() {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel.loginresponse.observe(viewLifecycleOwner){
+        viewModel.loginresponse.observe(viewLifecycleOwner) {
 
             when (it) {
-                is NetworkState.error -> {
+                is NetworkState.Error -> {
                     binding.progressHorizontal.visibility = View.GONE
                     Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_LONG).show()
                 }
 
-                is NetworkState.loading -> {
+                is NetworkState.Loading -> {
                     binding.progressHorizontal.visibility = View.VISIBLE
 
                 }
 
                 is NetworkState.Success -> {
+//                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
+//                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
+
 
                     Toast.makeText(requireContext(), "Login Success ! ", Toast.LENGTH_LONG).show()
                     Log.d("TAG", "Data :${it.data} ")
 
                     binding.progressHorizontal.visibility = View.GONE
+                 //   findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+
 
                 }
             }
+
+
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.RegisterBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_regsiterFragment)
         }
 
+
+
+
+
+
+
         binding.loginBtn.setOnClickListener {
+
             binding.progressHorizontal.visibility = View.VISIBLE
-            val loginrequest = RequestLogin("john@mail.com", "changeme")
+
+            val loginRequest = RequestLogin("john@mail.com", "changeme")
+
             val email = binding.userEmail.text.toString().trim()
             val password = binding.userPasword.text.toString().trim()
 
-            viewModel.loginuser(loginrequest)
+            // val loginRequest = RequestLogin(email = email, password = password)
+
+            viewModel.loginuser(loginRequest)
+
+
         }
 
-
-
     }
+
+
 }

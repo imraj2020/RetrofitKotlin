@@ -13,11 +13,12 @@ import androidx.navigation.fragment.findNavController
 import com.cse.retrofitkotlin.R
 import com.cse.retrofitkotlin.base.BaseFragment
 import com.cse.retrofitkotlin.core.NetworkState
+import com.cse.retrofitkotlin.data.model.register.RequestRegister
 import com.cse.retrofitkotlin.databinding.FragmentRegisterBinding
-import com.mehedi.manualdiu.data.models.register.RequestRegister
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
 
@@ -25,12 +26,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     override fun responseObserver() {
         viewModel.userCreateResponse.observe(viewLifecycleOwner) {
             when (it) {
-                is NetworkState.error -> {
+                is NetworkState.Error -> {
                     binding.progressHorizontal.visibility = View.GONE
                     Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_LONG).show()
                 }
 
-                is NetworkState.loading -> {
+                is NetworkState.Loading -> {
                     binding.progressHorizontal.visibility = View.VISIBLE
 
                 }
