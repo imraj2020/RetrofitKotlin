@@ -14,6 +14,9 @@ import com.cse.retrofitkotlin.base.BaseFragment
 import com.cse.retrofitkotlin.core.NetworkState
 import com.cse.retrofitkotlin.data.model.RequestLogin
 import com.cse.retrofitkotlin.databinding.FragmentLoginBinding
+import com.cse.retrofitkotlin.utils.KEY_ACCESS
+import com.cse.retrofitkotlin.utils.KEY_REFRESH
+import com.cse.retrofitkotlin.utils.PrefesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,7 +27,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
 
 
-
+    @Inject
+    lateinit var prefsManager: PrefesManager
 
     private val viewModel: LoginViewModel by viewModels()
     override fun responseObserver() {
@@ -42,15 +46,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 }
 
                 is NetworkState.Success -> {
-//                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
-//                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
+
+                    it.data?.accessToken?.let { it1 -> prefsManager.setPref(KEY_ACCESS, it1) }
+                    it.data?.refreshToken?.let { it1 -> prefsManager.setPref(KEY_REFRESH, it1) }
 
 
                     Toast.makeText(requireContext(), "Login Success ! ", Toast.LENGTH_LONG).show()
                     Log.d("TAG", "Data :${it.data} ")
 
                     binding.progressHorizontal.visibility = View.GONE
-                 //   findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
 
 
                 }

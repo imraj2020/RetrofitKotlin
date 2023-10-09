@@ -13,11 +13,19 @@ app:startDestination="@id/loginFragment">
     <action
         android:id="@+id/action_loginFragment_to_regsiterFragment"
         app:destination="@id/regsiterFragment" />
+    <action
+        android:id="@+id/action_loginFragment_to_profileFragment"
+        app:destination="@id/profileFragment" />
 </fragment>
 <fragment
     android:id="@+id/regsiterFragment"
     android:name="com.cse.retrofitkotlin.ui.register.RegisterFragment"
     android:label="fragment_regsiter"
     tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.cse.retrofitkotlin.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

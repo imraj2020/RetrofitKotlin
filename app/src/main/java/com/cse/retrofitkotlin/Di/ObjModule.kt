@@ -1,14 +1,19 @@
 package com.cse.retrofitkotlin.Di
 
+import android.content.Context
 import com.cse.nativelib2.NativeLib
 import com.cse.retrofitkotlin.data.LocalSource
 import com.cse.retrofitkotlin.data.RemoteSource
-import com.cse.retrofitkotlin.network.LoginService
+import com.cse.retrofitkotlin.network.ApiService
 import com.cse.retrofitkotlin.repos.UserRepos
+import com.cse.retrofitkotlin.utils.AuthInterCepter
+import com.cse.retrofitkotlin.utils.PrefesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -28,11 +33,21 @@ class ObjModule {
 
     @Provides
     @Singleton
-    fun Retrofit(baseUrl : String): LoginService = Retrofit.Builder()
+    fun providePrefs(@ApplicationContext context: Context) = PrefesManager(context)
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(interceptor: AuthInterCepter): OkHttpClient {
+        return OkHttpClient.Builder().addInterceptor(interceptor).build()
+    }
+    @Provides
+    @Singleton
+    fun Retrofit(baseUrl : String, interceptorClient: OkHttpClient): ApiService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
+        .client(interceptorClient)
         .build()
-        .create(LoginService::class.java)
+        .create(ApiService::class.java)
 
 
     @Provides
@@ -42,7 +57,7 @@ class ObjModule {
 
     @Provides
     @Singleton
-    fun remotesource(retrofit: LoginService) = RemoteSource(retrofit)
+    fun remotesource(retrofit: ApiService) = RemoteSource(retrofit)
 
 
     @Provides
