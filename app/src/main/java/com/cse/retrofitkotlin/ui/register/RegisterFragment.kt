@@ -75,7 +75,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 password = password,
                 avatar = "https://dmarkcy.com/images/team/web/mehedi.png"
             )
-            viewModel.register(request)
+       //     viewModel.register(request)
 
 
         }

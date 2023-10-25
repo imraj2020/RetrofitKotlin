@@ -1,9 +1,8 @@
 package com.cse.retrofitkotlin.Di
 
 import android.content.Context
-import com.cse.nativelib2.NativeLib
+import com.cse.nativelib.NativeLib
 import com.cse.retrofitkotlin.data.LocalSource
-import com.cse.retrofitkotlin.data.RemoteSource
 import com.cse.retrofitkotlin.network.ApiService
 import com.cse.retrofitkotlin.repos.UserRepos
 import com.cse.retrofitkotlin.utils.AuthInterCepter
@@ -42,12 +41,11 @@ class ObjModule {
     }
     @Provides
     @Singleton
-    fun Retrofit(baseUrl : String, interceptorClient: OkHttpClient): ApiService = Retrofit.Builder()
+    fun retrofit(baseUrl: String, interceptorClient: OkHttpClient): ApiService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .client(interceptorClient)
-        .build()
-        .create(ApiService::class.java)
+        .build().create(ApiService::class.java)
 
 
     @Provides
@@ -55,13 +53,14 @@ class ObjModule {
     fun localsource()=LocalSource()
 
 
-    @Provides
-    @Singleton
-    fun remotesource(retrofit: ApiService) = RemoteSource(retrofit)
+//    @Provides
+//    @Singleton
+//    fun remotesource(retrofit: ApiService) = RemoteSource(retrofit)
 
 
     @Provides
     @Singleton
-    fun userRepo(localSource: LocalSource,remoteSource: RemoteSource)=UserRepos(localSource, remoteSource)
+    fun userRepo(localSource: LocalSource, service: ApiService) =
+        UserRepos(localSource, service)
 
 }

@@ -1,6 +1,6 @@
 package com.cse.retrofitkotlin.core
 
-sealed class NetworkState<T>(
+sealed class  NetworkState<T>(
     var data: T? = null,
     var message: String? = null
 ) {
