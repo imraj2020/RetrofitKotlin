@@ -6,6 +6,7 @@ import com.cse.retrofitkotlin.data.model.register.RequestRegister
 import com.cse.retrofitkotlin.data.model.register.ResponseRegister
 import com.cse.retrofitkotlin.data.model.token.RequestToken
 import com.cse.retrofitkotlin.data.model.token.ResponseToken
+import com.cse.retrofitkotlin.utils.CATEGORY_ENDPOINT
 import com.cse.retrofitkotlin.utils.LOGIN_ENDPOINT
 import com.cse.retrofitkotlin.utils.PROFILE_ENDPOINT
 import com.cse.retrofitkotlin.utils.REGISTER_ENDPOINT
@@ -28,5 +29,7 @@ interface ApiService {
 
     @POST(TOKEN_ENDPOINT)
     suspend fun refreshToken(@Body requestToken: RequestToken): Response<ResponseToken>
+    @GET(CATEGORY_ENDPOINT)
+    suspend fun getCategories():Response<ResponseBody>
 
 }
